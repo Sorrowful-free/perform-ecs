@@ -1,10 +1,10 @@
-import { ECS } from "./ECS";
+import { ECSManager } from "./ECSManager";
 import { EntityView } from "./EntityViewFactory";
 import { ISystem } from "./ISystem";
 
 export class System implements ISystem {
 
-    public ecs: ECS;
+    public manager: ECSManager;
 
     public update(dt: number): void {
 

@@ -1,12 +1,14 @@
 import { assert } from "chai"
-import { ECS } from "../src/ECS";
+import { ECSManager } from "../src/ECSManager";
 import { TestEmptyComponent, TestPositionComponent, TestVelocityComponent } from "./TestComponents";
 import { TestPositionSystem, TestVelocitySystem } from "./TestSystems";
 import { componentHashHasComponent, componentHashMatch, getComponentsHash } from "../src/ComponentGroupHash";
+import {ComponentInitializer} from "../src";
+import {ComponentConstructor} from "../src/Component";
 
 describe('Component hash', function () {
 
-    const ecs = new ECS();
+    const ecs = new ECSManager();
     const positionSystem = new TestPositionSystem();
     const velocitySystem = new TestVelocitySystem();
     ecs.registerSystem(positionSystem);
@@ -23,7 +25,7 @@ describe('Component hash', function () {
     it("can be matched against many components", () => {
         const comps: any[] = [];
         for (let i = 0; i < 10; i++) {
-            comps.push({id: i});
+            comps.push(<ComponentConstructor>{hash: i});
         }
         const hash012345 = getComponentsHash(comps.slice(0, 5));
         const hash0123 = getComponentsHash(comps.slice(0, 3));

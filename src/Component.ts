@@ -1,23 +1,29 @@
+import {NonFunctionProperties} from "./HelperTypes";
+
+export type ComponentHash = number;
+
 export abstract class Component {
-    static readonly _id: number = 0;
-    static readonly id: number;
+    public static readonly hash: ComponentHash;
     public abstract reset(object: this, ...args: any[]): void;
 }
 
-export function makeComponent(constructor: any) {
-    constructor.id = (<any>Component)._id++;
+export function registerComponent(componentId: ComponentHash) {
+    const registerComponentDecorator: ClassDecorator = target => {
+        const componentConstructor = (<ComponentConstructor><any>target);
+        componentConstructor.hash = componentId;
+        return target;
+    }
+    return registerComponentDecorator;
 }
 
-type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T];
-type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
 export type EntityOf<T extends any> = NonFunctionProperties<T>;
 
 export type ComponentConstructor = {
     new(): Component;
-    id: number
+    hash: ComponentHash;
 }
 
-export interface ComponentInitializator<T extends any = any> {
+export interface ComponentInitializer<T extends any = any> {
     component: T;
     args?: T['prototype']['reset'];
 }

@@ -1,17 +1,17 @@
 import { assert } from "chai"
-import { ECS } from "../src/ECS";
+import { ECSManager } from "../src/ECSManager";
 import { TestPositionComponent, TestVelocityComponent } from "./TestComponents";
 import { TestPositionSystem, TestVelocitySystem } from "./TestSystems";
 import sinon from "sinon";
 
 describe('Systems', function () {
 
-    let ecs: ECS;
+    let ecs: ECSManager;
     let positionSystem: TestPositionSystem;
     let velocitySystem: TestVelocitySystem;
 
     it("has updated views after entity is added to ECS", () => {
-        ecs = new ECS();
+        ecs = new ECSManager();
         positionSystem = new TestPositionSystem();
         velocitySystem = new TestVelocitySystem();
         ecs.registerSystem(positionSystem);
@@ -31,7 +31,7 @@ describe('Systems', function () {
     });
 
     it("has triggered onEntityAdded when entity is added", () => {
-        ecs = new ECS();
+        ecs = new ECSManager();
         positionSystem = new TestPositionSystem();
         velocitySystem = new TestVelocitySystem();
 
@@ -50,7 +50,4 @@ describe('Systems', function () {
         assert(onEntityAddedVelocity.calledOnce);
         assert(onEntityAddedVelocity.withArgs(entity));
     });
-
-
-
 });

@@ -1,7 +1,15 @@
-import { Component, makeComponent } from "../src/Component";
+import {Component, registerComponent} from "../src/Component";
 
+enum TestComponentsIds { // it will need for sure of order of component ids on NodeJs server and js clients
+    None,
+    TestPositionComponentId,
+    TestVelocityComponentId,
+    TestEmptyComponentId,
+    TestGoodConventionComponent1Id,
+    TestGoodConventionComponent2Id
+}
 
-@makeComponent
+@registerComponent(TestComponentsIds.TestPositionComponentId)
 export class TestPositionComponent extends Component {
 
     public x: number;
@@ -13,7 +21,7 @@ export class TestPositionComponent extends Component {
     }
 }
 
-@makeComponent
+@registerComponent(TestComponentsIds.TestVelocityComponentId)
 export class TestVelocityComponent extends Component {
 
     public dx: number;
@@ -26,8 +34,24 @@ export class TestVelocityComponent extends Component {
 
 }
 
-@makeComponent
+@registerComponent(TestComponentsIds.TestEmptyComponentId)
 export class TestEmptyComponent extends Component {
     public reset(obj: this): void {
+    }
+}
+
+@registerComponent(TestComponentsIds.TestGoodConventionComponent1Id)
+export class TestGoodConventionComponent1 extends Component{
+    public conventionData1:{title:string,description:string}
+    public reset(obj: this) {
+        obj.conventionData1 = {title:"hello",description:"vitek"};
+    }
+}
+
+@registerComponent(TestComponentsIds.TestGoodConventionComponent2Id)
+export class TestGoodConventionComponent2 extends Component{
+    public conventionData2:{title:string,description:string}
+    public reset(obj: this) {
+        obj.conventionData2 = {title:"bye",description:"vasyan"};
     }
 }

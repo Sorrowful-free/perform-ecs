@@ -1,3 +1,3 @@
-import { ComponentInitializator } from "./Component";
+import {ComponentInitializer} from "./Component";
 
-export type Archetype = ComponentInitializator[];
+export type Archetype = ComponentInitializer[];

@@ -1,9 +1,6 @@
-
 import { componentHashHasComponent, componentHashMatch, getComponentsHash, ComponentsHash } from "./ComponentGroupHash";
-import { ComponentConstructor, ComponentInitializator } from './Component';
+import { ComponentConstructor, ComponentInitializer } from './Component';
 import { Entity } from './Entity';
-
-export const aa = {};
 
 export class ComponentsGroup {
     public readonly entities: Entity[];
@@ -20,15 +17,14 @@ export class ComponentsGroup {
         this.onEntityRemoved = [];
     }
 
-
-    public pushEntity(entity: Entity): void {
+    public addEntity(entity: Entity): void {
         for (const callback of this.onEntityAdded) {
             callback(entity);
         }
         this.entities.push(entity);
     }
 
-    public match(components: ComponentConstructor[]): boolean {
+    public matchComponent(components: ComponentConstructor[]): boolean {
         for (const comp of components) {
             if (!componentHashHasComponent(this.hash, comp)) {
                 return false;
@@ -37,12 +33,12 @@ export class ComponentsGroup {
         return true;
     }
 
-    public matchHash(hash: ComponentsHash): boolean {
+    public matchComponentHash(hash: ComponentsHash): boolean {
         return componentHashMatch(hash, this.hash);
     }
 
 
-    public has(component: ComponentConstructor): boolean {
+    public hasComponent(component: ComponentConstructor): boolean {
         return componentHashHasComponent(this.hash, component);
     }
 
@@ -57,5 +53,3 @@ export class ComponentsGroup {
         }
     }
 }
-
-export type ComponentGroupMap = { [hash: number]: ComponentsGroup };

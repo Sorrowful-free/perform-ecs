@@ -26,4 +26,5 @@ export class SystemRegistry {
         }
         this.systems.push(system);
     }
+
 }

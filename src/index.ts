@@ -2,8 +2,8 @@ export { getComponentsHashFromInitializators } from "./ComponentGroupHash"
 export { EntityViewFactory } from "./EntityViewFactory";
 export { System, SystemEntityType } from "./System";
 export { Entity } from "./Entity";
-export { Component, ComponentInitializator, makeComponent, EntityOf } from "./Component";
-export { ECS } from "./ECS";
+export { Component, ComponentInitializer, registerComponent, EntityOf } from "./Component";
+export { ECSManager } from "./ECSManager";
 
 import "./Archetype";
 import "./ComponentGroupHash";

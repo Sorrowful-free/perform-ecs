@@ -11,10 +11,12 @@ export class TestPositionSystem extends System {
     });
 
     public onEntityAdded(entity: SystemEntityType<this, "view">): void {
-        entity = this.view.entities[0];
+        //entity = this.view.entities[0];
+        console.log("added 1");
     }
 
     public onEntityRemoved(entity: SystemEntityType<this, "view">): void {
+        console.log("removed 1");
     }
 }
 
@@ -31,9 +33,11 @@ export class TestVelocitySystem extends System {
     });
 
     public onEntityAdded(entity: SystemEntityType<this, "view">): void {
+        console.log("added 2");
     }
 
     public onEntityRemoved(entity: SystemEntityType<this, "view">): void {
+        console.log("removed 2");
     }
 }
 

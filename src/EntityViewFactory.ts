@@ -1,5 +1,6 @@
 import { ComponentConstructor } from "./Component";
 import { Entity } from "./Entity";
+import {NonFunctionProperties} from "./HelperTypes";
 
 export interface EntityView<T = any> {
     entities: T[];
@@ -15,8 +16,6 @@ interface EntityViewInitializator<compsT = ComponentConstructor[]> {
     onEntityRemoved?: Function;
 }
 
-
-
 export class EntityViewFactory {
     static createView: createEntityViewFunc = ((data: EntityViewInitializator): EntityView<any> => {
         const view = <EntityView>{
@@ -30,8 +29,6 @@ export class EntityViewFactory {
     }) as any;
 }
 
-type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T];
-type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
 type ComponentOf<T extends any> = NonFunctionProperties<T['prototype']>;
 
 type createEntityViewFunc = <T extends ComponentConstructor,
